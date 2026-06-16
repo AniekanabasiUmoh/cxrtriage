@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+/* ============================================================
+   AfriCXR Triage design tokens
+   "Medical field notebook" — paper, ink, highlighter, clinic green.
+   Tailwind v4: tokens declared in @theme become utilities
+   (e.g. bg-paper, text-ink, font-hand).
+   ============================================================ */
+
+@theme {
+  /* Palette */
+  --color-paper: #f7f1e6;
+  --color-paper-light: #fbf7ef;
+  --color-paper-card: #f3e7ce;
+  --color-ink: #161411;
+  --color-muted-ink: #625c52;
+  --color-line: #d7c9b4;
+  --color-highlight: #d9a51f;
+  --color-highlight-soft: #f1d48b;
+  --color-clinical-green: #2f6b4f;
+  --color-clinical-green-soft: #dce9df;
+  --color-result-red: #a7352a;
+  --color-danger-red: #8e2b23;
+  --color-black-brush: #11100e;
+  --color-white-chalk: #f8f3ea;
+
+  /* Fonts (variables injected by next/font in layout.tsx) */
+  --font-hand: var(--font-patrick-hand), "Comic Neue", "Segoe Print", cursive;
+  --font-ui: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Radii */
+  --radius-card: 18px;
+  --radius-torn: 10px;
+}
+
+/* Base */
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-ui);
+}
+
+/* ---- Reusable surfaces (from design.md) ---- */
+.paper-card {
+  background: var(--color-paper-light);
+  border: 1px solid rgba(150, 130, 100, 0.22);
+  border-radius: var(--radius-card);
+  box-shadow: 0 12px 30px rgba(64, 52, 35, 0.1);
+}
+
+.torn-card {
+  background: var(--color-paper-card);
+  border-radius: var(--radius-torn);
+  box-shadow: 0 18px 32px rgba(64, 52, 35, 0.16);
+}
+
+/* Yellow highlighter underline behind text */
+.highlight-underline {
+  background-image: linear-gradient(
+    transparent 55%,
+    rgba(217, 165, 31, 0.65) 55%
+  );
+  background-repeat: no-repeat;
+}
+
+/* Real paper grain (tiled WebP from the design handoff) over the paper color */
+.paper-texture {
+  background-color: var(--color-paper);
+  background-image: url("/assets/paper-texture.webp");
+  background-size: 600px auto;
+  background-repeat: repeat;
+}
+
+/* Dashed upload border, paper card */
+.dashed-dropzone {
+  border: 2px dashed var(--color-line);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-light);
+}
+
+/* Decorative tape strip */
+.tape {
+  background: rgba(217, 200, 160, 0.55);
+  box-shadow: 0 1px 2px rgba(64, 52, 35, 0.15);
+}
+
+/* Respect reduced motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Result card slide-in */
+@keyframes paper-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) rotate(-0.4deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+.animate-paper-slide-in {
+  animation: paper-slide-in 0.4s ease-out both;
+}
+
+/* Confidence bar fill */
+@keyframes confidence-fill {
+  from {
+    width: 0;
+  }
+}
+.animate-confidence-fill {
+  animation: confidence-fill 0.8s ease-out both;
+}
