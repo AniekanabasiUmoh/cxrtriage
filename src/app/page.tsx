@@ -1,18 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { BrushButton } from "@/components/ui/BrushButton";
 import { HighlightText } from "@/components/ui/HighlightText";
 import { PaperCard } from "@/components/ui/PaperCard";
 import { StickyNote } from "@/components/ui/StickyNote";
 import { HandArrow } from "@/components/ui/HandArrow";
-import { HandIcon } from "@/components/ui/HandIcon";
 import { DisclaimerStrip } from "@/components/layout/DisclaimerStrip";
 import { ClinicFooterIllustration } from "@/components/layout/ClinicFooterIllustration";
-
-const QUICK_FEATURES = [
-  { icon: "upload", label: "Upload" },
-  { icon: "magnifier", label: "Get AI insight" },
-  { icon: "clinician", label: "You decide" },
-] as const;
 
 export default function HomePage() {
   return (
@@ -46,18 +40,6 @@ export default function HomePage() {
             height={233}
             className="mt-6 h-auto w-72"
           />
-
-          {/* Quick-feature row */}
-          <ul className="mt-8 flex flex-wrap gap-6">
-            {QUICK_FEATURES.map((f) => (
-              <li key={f.label} className="flex items-center gap-2 text-sm text-ink">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-paper-card">
-                  <HandIcon name={f.icon} size={18} className="text-clinical-green" />
-                </span>
-                {f.label}
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* Hero collage: watercolor clinic + taped X-ray + sticky result + arrow */}
@@ -70,7 +52,7 @@ export default function HomePage() {
             width={560}
             height={700}
             priority
-            className="pointer-events-none absolute -right-4 top-6 w-[78%] opacity-60"
+            className="pointer-events-none absolute -right-4 top-6 w-[78%] mix-blend-multiply opacity-70"
           />
 
           {/* taped X-ray polaroid */}
@@ -107,66 +89,58 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ---------- How the triage flow works ---------- */}
+      {/* ---------- How the triage flow works (heading baked into image) ---------- */}
       <section className="mt-20">
-        <h2 className="font-hand text-3xl text-ink">How the triage flow works.</h2>
         <Image
           src="/assets/triage-flow.webp"
-          alt="Triage flow: 1. Upload chest X-ray, 2. AI triage prediction, 3. Triage interpretation, 4. Human review by a clinician."
-          width={1400}
-          height={788}
-          className="mt-6 h-auto w-full"
-        />
-        <p className="mt-2 text-xs text-muted-ink">
-          The live demo accepts JPG and PNG images.
-        </p>
-      </section>
-
-      {/* ---------- Model journey ---------- */}
-      <section className="mt-20">
-        <h2 className="font-hand text-3xl text-ink">
-          From baseline models to <HighlightText>foundation-model</HighlightText>{" "}
-          workflow.
-        </h2>
-        <Image
-          src="/assets/model-progression.webp"
-          alt="Model progression: baseline CNN trained from scratch, then MobileNetV2 transfer learning, then MedSigLIP embeddings with logistic regression — the best balance of pneumonia detection and reduced false positives."
-          width={1400}
-          height={788}
-          className="mt-6 h-auto w-full"
-        />
-      </section>
-
-      {/* ---------- Final CTA ---------- */}
-      <section className="relative mt-20">
-        <Image
-          src="/assets/cta-banner.webp"
-          alt=""
-          aria-hidden
+          alt="How the triage flow works: 1. Upload chest X-ray, 2. AI triage prediction, 3. Triage interpretation, 4. Human review by a clinician. The live demo accepts JPG and PNG images."
           width={1400}
           height={788}
           className="h-auto w-full"
         />
-        {/* Real, clickable CTAs overlaid on the lower area of the banner */}
-        <div className="absolute inset-x-0 bottom-[12%] flex justify-center gap-4 px-4">
-          <BrushButton as="link" href="/upload" variant="highlight">
+      </section>
+
+      {/* ---------- Model journey (heading baked into image) ---------- */}
+      <section className="mt-20">
+        <Image
+          src="/assets/model-progression.webp"
+          alt="From baseline models to foundation-model workflow: baseline CNN trained from scratch, then MobileNetV2 transfer learning, then MedSigLIP embeddings with logistic regression — the best balance of pneumonia detection and reduced false positives."
+          width={1400}
+          height={788}
+          className="h-auto w-full"
+        />
+      </section>
+
+      {/* ---------- Final CTA (buttons are drawn into the banner image; ---------- */}
+      {/* we overlay transparent links over them so they are clickable)        */}
+      <section className="relative mt-20">
+        <Image
+          src="/assets/cta-banner.webp"
+          alt="Early insight. Human judgment."
+          width={1400}
+          height={788}
+          className="h-auto w-full"
+        />
+        {/* Transparent clickable hit-areas over the baked-in buttons */}
+        <Link
+          href="/upload"
+          aria-label="Explore the Demo"
+          className="absolute bottom-[20%] left-[48%] h-[10%] w-[18%] -translate-x-full rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white-chalk"
+        />
+        <Link
+          href="/model"
+          aria-label="View Model Journey"
+          className="absolute bottom-[20%] left-[50%] h-[10%] w-[20%] rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white-chalk"
+        />
+        {/* Visible, reliable fallback CTAs below the banner (always usable) */}
+        <div className="mt-4 flex flex-wrap justify-center gap-3">
+          <BrushButton as="link" href="/upload" variant="brush">
             Explore the Demo
           </BrushButton>
-          <BrushButton
-            as="link"
-            href="/model"
-            variant="ghost"
-            className="border-white-chalk/40 text-white-chalk"
-          >
+          <BrushButton as="link" href="/model" variant="ghost">
             View Model Journey
           </BrushButton>
         </div>
-        {/* Accessible text equivalent of the banner */}
-        <p className="sr-only">
-          Early insight. Human judgment. Explore a portfolio-grade healthcare ML
-          project demonstrating the path from model training to deployed
-          inference API.
-        </p>
       </section>
 
       <div className="mt-12">
