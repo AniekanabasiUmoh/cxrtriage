@@ -26,7 +26,7 @@ export default function HomePage() {
             People who decide.
           </h1>
           <p className="mt-5 max-w-md text-base text-muted-ink">
-            AfriCXR Triage is an educational prototype building AI workflows for
+            CXR Triage is an educational prototype building AI workflows for
             chest X-ray triage in low-resource healthcare settings.
           </p>
 

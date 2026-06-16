@@ -4,8 +4,8 @@ import { HighlightText } from "@/components/ui/HighlightText";
 import { HandIcon } from "@/components/ui/HandIcon";
 
 export const metadata: Metadata = {
-  title: "About the Creator — AfriCXR Triage",
-  description: "The clinician behind AfriCXR Triage and the journey from medicine to machine learning.",
+  title: "About the Creator — CXR Triage",
+  description: "The clinician behind CXR Triage and the journey from medicine to machine learning.",
 };
 
 const LOREM =
@@ -32,7 +32,7 @@ export default function CreatorPage() {
         <div>
           <h2 className="font-hand text-2xl text-ink">A doctor learning to build.</h2>
           <p className="mt-3 text-sm leading-relaxed text-ink">
-            AfriCXR Triage was built by a medical doctor transitioning into
+            CXR Triage was built by a medical doctor transitioning into
             machine learning, with a focus on healthcare applications in
             low-resource African settings. The project grew out of a simple
             clinical reality: in a busy emergency department, the limiting factor

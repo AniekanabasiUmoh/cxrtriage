@@ -5,7 +5,7 @@ import { HandIcon } from "@/components/ui/HandIcon";
 import { BrushButton } from "@/components/ui/BrushButton";
 
 export const metadata: Metadata = {
-  title: "Model Journey — AfriCXR Triage",
+  title: "Model Journey — CXR Triage",
   description:
     "From a baseline CNN to MobileNetV2 transfer learning to MedSigLIP embeddings.",
 };
@@ -38,7 +38,7 @@ export default function ModelPage() {
         Model <HighlightText>Journey</HighlightText>
       </h1>
       <p className="mt-4 text-base text-muted-ink">
-        AfriCXR Triage began as a comparison across three stages of computer
+        CXR Triage began as a comparison across three stages of computer
         vision in healthcare. Each stage is a real, evaluated model — not a
         marketing claim.
       </p>

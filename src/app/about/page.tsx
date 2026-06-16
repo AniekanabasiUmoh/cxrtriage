@@ -4,19 +4,19 @@ import { HighlightText } from "@/components/ui/HighlightText";
 import { DisclaimerStrip } from "@/components/layout/DisclaimerStrip";
 
 export const metadata: Metadata = {
-  title: "About — AfriCXR Triage",
+  title: "About — CXR Triage",
   description:
-    "What AfriCXR Triage is, how it should be used, and our responsible-AI framing.",
+    "What CXR Triage is, how it should be used, and our responsible-AI framing.",
 };
 
 export default function AboutPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <h1 className="font-hand text-4xl text-ink">
-        About <HighlightText>AfriCXR Triage</HighlightText>
+        About <HighlightText>CXR Triage</HighlightText>
       </h1>
       <p className="mt-4 text-base text-muted-ink">
-        AfriCXR Triage is an educational healthcare-AI prototype that helps
+        CXR Triage is an educational healthcare-AI prototype that helps
         triage chest X-ray images into likely-normal or likely-pneumonia
         patterns, using a medical foundation-model workflow. It demonstrates the
         full path from model training to a deployed inference API.

@@ -18,7 +18,7 @@ const patrickHand = Patrick_Hand({
 });
 
 export const metadata: Metadata = {
-  title: "AfriCXR Triage — AI that assists. People who decide.",
+  title: "CXR Triage — AI that assists. People who decide.",
   description:
     "An educational prototype for chest X-ray triage in low-resource healthcare settings. Not a diagnostic tool.",
 };

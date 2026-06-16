@@ -19,7 +19,7 @@ export function SiteHeader() {
           <HandIcon name="lungs" size={28} className="text-clinical-green" />
           <span className="flex flex-col leading-tight">
             <span className="font-hand text-xl text-ink">
-              AfriCXR Triage
+              CXR Triage
               <span className="ml-2 rounded bg-highlight-soft px-1.5 py-0.5 align-middle font-ui text-[10px] font-semibold uppercase tracking-wide text-ink">
                 Beta
               </span>

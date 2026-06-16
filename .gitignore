@@ -45,3 +45,5 @@ next-env.d.ts
 /africxr-design-handoff.zip
 /scaffold-tmp/
 .env.local
+
+.vercel

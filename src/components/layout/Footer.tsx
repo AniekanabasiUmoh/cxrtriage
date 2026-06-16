@@ -8,7 +8,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6 px-4 py-8 sm:px-6 md:flex-row md:items-center md:justify-between">
         <div className="flex items-center gap-2">
           <HandIcon name="lungs" size={22} className="text-clinical-green" />
-          <span className="font-hand text-lg">AfriCXR Triage</span>
+          <span className="font-hand text-lg">CXR Triage</span>
         </div>
 
         <nav aria-label="Footer">

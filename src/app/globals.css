@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   AfriCXR Triage design tokens
+   CXR Triage design tokens
    "Medical field notebook" — paper, ink, highlighter, clinic green.
    Tailwind v4: tokens declared in @theme become utilities
    (e.g. bg-paper, text-ink, font-hand).

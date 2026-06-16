@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { UploadDropzone } from "@/components/upload/UploadDropzone";
+import { SampleImages } from "@/components/upload/SampleImages";
 import { XrayPreviewCard } from "@/components/upload/XrayPreviewCard";
 import { XrayPreviewPlaceholder } from "@/components/upload/XrayPreviewPlaceholder";
 import { UploadChecklist } from "@/components/upload/UploadChecklist";
@@ -135,6 +136,13 @@ export default function UploadPage() {
           )}
         </div>
       </div>
+
+      {/* Try-a-sample strip (hidden once a result is showing to reduce noise) */}
+      {phase !== "complete" && (
+        <div className="mt-6">
+          <SampleImages onPick={onFileAccepted} />
+        </div>
+      )}
 
       {/* Interpretation + human review (only when complete) */}
       {phase === "complete" && view && (

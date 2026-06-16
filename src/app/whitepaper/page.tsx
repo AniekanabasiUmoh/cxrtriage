@@ -5,7 +5,7 @@ import { HandIcon } from "@/components/ui/HandIcon";
 import { DisclaimerStrip } from "@/components/layout/DisclaimerStrip";
 
 export const metadata: Metadata = {
-  title: "Whitepaper — AfriCXR Triage",
+  title: "Whitepaper — CXR Triage",
   description:
     "Technical writeup: data, methodology, model journey, results, and limitations.",
 };
@@ -28,7 +28,7 @@ export default function WhitepaperPage() {
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
       <p className="font-hand text-sm text-muted-ink">Technical writeup &bull; draft</p>
       <h1 className="mt-1 font-hand text-4xl text-ink">
-        AfriCXR Triage <HighlightText>Whitepaper</HighlightText>
+        CXR Triage <HighlightText>Whitepaper</HighlightText>
       </h1>
       <p className="mt-3 text-sm text-muted-ink">
         Predicting pneumonia patterns in chest X-rays for low-resource triage —
