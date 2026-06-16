@@ -30,12 +30,6 @@ const EXPERIENCE = [
       "Provided clinical support and assisted in patient management as a 5th-year medical student.",
   },
   {
-    role: "AI Trainer / Evaluator — Outlier",
-    when: "2025 – Present",
-    detail:
-      "High-precision medical data annotation and RLHF to keep clinical accuracy in AI model outputs.",
-  },
-  {
     role: "Country Lead — XION",
     when: "2024 – 2025",
     detail:
