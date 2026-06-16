@@ -24,10 +24,10 @@ const EXPERIENCE = [
       "Full-stack and Web3 deliverables for 50+ organizations; clinical RAG pipelines integrating medical protocols with AI; led teams across DeFi, logistics (Dzpatch), and delivery (FoodHunt) products.",
   },
   {
-    role: "House Officer — UCTH",
-    when: "Present",
+    role: "Medical Intern — Faith Foundation Clinic",
+    when: "2023",
     detail:
-      "Clinical rotations in Internal Medicine and postings across multiple departments at the University of Calabar Teaching Hospital.",
+      "Provided clinical support and assisted in patient management as a 5th-year medical student.",
   },
   {
     role: "AI Trainer / Evaluator — Outlier",
