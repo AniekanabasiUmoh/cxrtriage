@@ -45,20 +45,22 @@ export default function CreatorPage() {
       </h1>
 
       {/* Intro: portrait + bio */}
-      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-[210px_1fr]">
-        <PaperCard tone="torn" rotate={-2} tape className="h-fit p-3">
+      <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start">
+        <PaperCard
+          tone="torn"
+          rotate={-2}
+          tape
+          className="mx-auto h-fit w-36 shrink-0 p-2 sm:mx-0"
+        >
           <Image
             src="/assets/creator.webp"
             alt="Dr. Aniekanabasi Umoh"
-            width={600}
-            height={600}
+            width={300}
+            height={300}
             className="aspect-square w-full rounded object-cover"
           />
-          <p className="mt-2 text-center font-hand text-sm text-ink">
+          <p className="mt-1.5 text-center font-hand text-xs text-ink">
             Dr. Aniekanabasi Umoh
-          </p>
-          <p className="text-center text-xs text-muted-ink">
-            ML Engineer &bull; Medical Doctor &bull; Founder
           </p>
         </PaperCard>
 
