@@ -58,6 +58,7 @@ const CONTENTS = [
   ["data", "Data"],
   ["methodology", "Methodology"],
   ["results", "Results"],
+  ["explainability", "Explainability"],
   ["deployment", "Deployment"],
   ["limitations", "Limitations & future work"],
 ] as const;
@@ -267,6 +268,23 @@ export default function WhitepaperPage() {
           <div className="not-prose">
             <ConfusionCards />
           </div>
+        </Section>
+
+        <Section id="explainability" title="Explainability">
+          <p>
+            Before the foundation-model stage, the transfer-learning model was
+            inspected with Grad-CAM across all four outcome types (true/false ×
+            positive/negative). On correct pneumonia cases, attention often fell
+            on clinically plausible lower-lung regions — encouraging evidence the
+            model was responding to relevant features, not artifacts.
+          </p>
+          <p>
+            Failure cases told the honest other half: attention was frequently
+            broad or non-specific. Grad-CAM is an inspection tool, not proof of
+            clinical correctness — a model can be right for the wrong reasons.
+            Keeping that visible is part of responsible framing. (The public demo
+            deliberately omits Grad-CAM to avoid implying diagnostic precision.)
+          </p>
         </Section>
 
         <Section id="deployment" title="Deployment">
