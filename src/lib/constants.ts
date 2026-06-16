@@ -18,7 +18,6 @@ export const SECONDARY_LINE = "Triage insight, not final diagnosis.";
 
 /** Nav links used by the header. */
 export const NAV_LINKS = [
-  { href: "/upload", label: "Upload" },
   { href: "/model", label: "Model Journey" },
   { href: "/whitepaper", label: "Whitepaper" },
   { href: "/about", label: "About" },
