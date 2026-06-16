@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { UploadDropzone } from "@/components/upload/UploadDropzone";
 import { SampleImages } from "@/components/upload/SampleImages";
 import { XrayPreviewCard } from "@/components/upload/XrayPreviewCard";
-import { XrayPreviewPlaceholder } from "@/components/upload/XrayPreviewPlaceholder";
 import { UploadChecklist } from "@/components/upload/UploadChecklist";
+import { UploadStepper } from "@/components/upload/UploadStepper";
 import { ResultCard } from "@/components/upload/ResultCard";
 import { InterpretationCard } from "@/components/upload/InterpretationCard";
 import { HumanReviewCard } from "@/components/upload/HumanReviewCard";
@@ -25,6 +25,22 @@ export default function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [view, setView] = useState<ResultView | null>(null);
   const [error, setError] = useState<PredictError | null>(null);
+
+  const workspaceRef = useRef<HTMLDivElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  const currentStep: 1 | 2 | 3 =
+    phase === "empty" ? 1 : phase === "complete" ? 3 : 2;
+
+  // Auto-scroll: to the workspace when a file is picked, to the result when ready.
+  useEffect(() => {
+    if (phase === "selected" || phase === "analyzing") {
+      workspaceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    if (phase === "complete" || phase === "error") {
+      resultRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [phase]);
 
   function reset() {
     setPhase("empty");
@@ -55,105 +71,103 @@ export default function UploadPage() {
       setView(toResultView(res));
       setPhase("complete");
     } catch (e) {
-      setError(e instanceof PredictError ? e : new PredictError("server", "Something went wrong."));
+      setError(
+        e instanceof PredictError ? e : new PredictError("server", "Something went wrong."),
+      );
       setPhase("error");
     }
   }
 
-  const showPreview = phase !== "empty" && file;
+  const hasFile = phase !== "empty" && file;
 
   return (
     <div className="mx-auto max-w-[1440px] px-4 py-8 sm:px-6">
       {/* Title */}
-      <header className="mb-6">
+      <header className="mb-5">
         <h1 className="font-hand text-4xl text-ink">
           Upload a <HighlightText>Chest X-ray</HighlightText>
         </h1>
         <p className="mt-2 max-w-xl text-sm text-muted-ink">
           Our AI analyzes the image and helps you make faster, more confident
-          triage decisions. This is an educational prototype — not a diagnosis.
+          triage decisions. This is an educational prototype, not a diagnosis.
         </p>
       </header>
 
-      {/* Top disclaimer (before result) */}
+      {/* Stepper */}
+      <div className="mb-5">
+        <UploadStepper current={currentStep} />
+      </div>
+
+      {/* Top disclaimer */}
       <DisclaimerStrip className="mb-6" />
 
-      {/* Live region for phase changes */}
+      {/* Live region for screen readers */}
       <p aria-live="polite" className="sr-only">
         {phase === "analyzing" ? "Analyzing image" : ""}
         {phase === "complete" && view ? `Result ready: ${view.headline}` : ""}
         {phase === "error" && error ? `Error: ${error.userMessage}` : ""}
       </p>
 
-      {/* Top row: upload / preview / result */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {/* Upload panel */}
-        <div className="space-y-4">
-          <UploadDropzone
-            onFileAccepted={onFileAccepted}
-            onReject={onReject}
-            disabled={phase === "analyzing"}
-          />
-          {phase === "selected" && (
-            <BrushButton variant="green" onClick={analyze} className="w-full">
-              Start Analysis
-            </BrushButton>
-          )}
-          {phase === "analyzing" && (
-            <BrushButton variant="green" disabled className="w-full">
-              Analyzing image…
-            </BrushButton>
-          )}
-          {(phase === "selected" ||
-            phase === "analyzing" ||
-            phase === "complete") && (
-            <UploadChecklist analyzed={phase === "complete"} />
-          )}
-        </div>
-
-        {/* Preview */}
-        <div>
-          {showPreview ? (
-            <XrayPreviewCard file={file} onChange={reset} />
-          ) : (
-            <XrayPreviewPlaceholder />
-          )}
-        </div>
-
-        {/* Result */}
-        <div>
-          {phase === "error" ? (
-            <ResultCard
-              state="error"
-              error={error ?? undefined}
-              onRetry={analyze}
-              onChooseAnother={reset}
-            />
-          ) : phase === "complete" && view ? (
-            <ResultCard state="complete" view={view} />
-          ) : (
-            <ResultCard state="pending" />
-          )}
-        </div>
-      </div>
-
-      {/* Try-a-sample strip (hidden once a result is showing to reduce noise) */}
-      {phase !== "complete" && (
-        <div className="mt-6">
+      {/* ---------- EMPTY STATE: dropzone + samples, nothing else ---------- */}
+      {phase === "empty" && (
+        <div className="mx-auto max-w-2xl space-y-5">
+          <UploadDropzone onFileAccepted={onFileAccepted} onReject={onReject} />
           <SampleImages onPick={onFileAccepted} />
         </div>
       )}
 
-      {/* Interpretation + human review (only when complete) */}
-      {phase === "complete" && view && (
-        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-          <InterpretationCard note={view.note} />
-          <HumanReviewCard />
+      {/* ---------- WORKSPACE: once a file exists ---------- */}
+      {hasFile && (
+        <div ref={workspaceRef} className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          {/* Left: preview + actions */}
+          <div className="space-y-4">
+            <XrayPreviewCard file={file} onChange={reset} />
+
+            {phase === "selected" && (
+              <BrushButton variant="green" onClick={analyze} className="w-full">
+                Start Analysis
+              </BrushButton>
+            )}
+            {phase === "analyzing" && (
+              <BrushButton variant="green" disabled className="w-full">
+                Analyzing image…
+              </BrushButton>
+            )}
+            {(phase === "complete" || phase === "error") && (
+              <BrushButton variant="ghost" onClick={reset} className="w-full">
+                Upload another
+              </BrushButton>
+            )}
+
+            <UploadChecklist analyzed={phase === "complete"} />
+          </div>
+
+          {/* Right: result (spans 2 cols on desktop for emphasis) */}
+          <div ref={resultRef} className="lg:col-span-2">
+            {phase === "error" ? (
+              <ResultCard
+                state="error"
+                error={error ?? undefined}
+                onRetry={analyze}
+                onChooseAnother={reset}
+              />
+            ) : phase === "complete" && view ? (
+              <div className="space-y-6">
+                <ResultCard state="complete" view={view} />
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <InterpretationCard note={view.note} />
+                  <HumanReviewCard />
+                </div>
+              </div>
+            ) : (
+              <ResultCard state="pending" />
+            )}
+          </div>
         </div>
       )}
 
-      {/* Bottom disclaimer (after result) — designed non-diagnostic banner */}
-      <div className="mt-8">
+      {/* Bottom disclaimer banner */}
+      <div className="mt-10">
         <Image
           src="/assets/non-diagnostic-banner.webp"
           alt="This is not a diagnostic tool. For educational and research purposes only."
